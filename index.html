@@ -75,7 +75,7 @@ h1 em{font-style:normal;color:var(--accent);}
 .map-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.6rem;}
 .map-title-wrap{display:flex;align-items:center;gap:0.75rem;}
 .map-title{font-size:0.95rem;font-weight:700;}
-.map-controls{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.map-controls{display:flex;gap:0.4rem;flex-wrap:wrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .map-btn{padding:0.27rem 0.75rem;border-radius:8px;font-size:0.72rem;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.2s;}
 .map-btn:hover,.map-btn.on{background:rgba(0,200,255,0.1);border-color:var(--accent);color:var(--accent);}
 .map-container{position:relative;background:#07101f;border:1px solid var(--border);border-radius:14px;overflow:hidden;height:460px;cursor:crosshair;}
@@ -158,6 +158,8 @@ svg.gossip-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:n
 @media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr);}.g3{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.g4,.g3,.g2{grid-template-columns:1fr;}}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem;transition:border-color 0.2s;}
+.span2{grid-column:span 2;}
+@media(max-width:900px){.span2{grid-column:span 1;}}
 .panel:hover{border-color:rgba(0,200,255,0.18);}
 .panel-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;}
 .pt{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
@@ -337,6 +339,147 @@ footer strong{color:var(--accent);}
 
 /* Notification dot */
 .notif-dot{display:inline-block;width:6px;height:6px;background:var(--danger);border-radius:50%;margin-left:4px;vertical-align:middle;animation:pulse-badge 1.5s infinite;}
+
+/* ══════ HAMBURGER / MOBILE NAV ══════ */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:1px solid var(--border);border-radius:8px;cursor:pointer;padding:6px;flex-shrink:0;}
+.hamburger span{display:block;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;background:rgba(6,13,26,0.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;padding:1.5rem;gap:0.5rem;overflow-y:auto;border-top:1px solid var(--border);}
+.mobile-nav.open{display:flex;}
+.mobile-pill{padding:0.75rem 1rem;border-radius:10px;font-size:0.9rem;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text);transition:all 0.2s;font-weight:500;text-align:left;width:100%;}
+.mobile-pill:hover,.mobile-pill.active{background:rgba(0,200,255,0.1);border-color:var(--accent);color:var(--accent);}
+.mobile-pill.active{background:var(--accent);color:#000;font-weight:700;border-color:var(--accent);}
+.mobile-nav-actions{display:flex;gap:0.5rem;margin-top:0.5rem;flex-wrap:wrap;}
+.mobile-nav-actions .nav-btn{flex:1;min-width:120px;text-align:center;padding:0.6rem 1rem;font-size:0.8rem;}
+
+/* ══════ RESPONSIVE BREAKPOINTS ══════ */
+
+/* Large tablets and small desktops */
+@media(max-width:1100px){
+  .g4{grid-template-columns:repeat(2,1fr);}
+  .g3{grid-template-columns:repeat(2,1fr);}
+  .node-panel{width:200px;}
+}
+
+/* Tablets */
+@media(max-width:900px){
+  nav .nav-pills{display:none;}
+  .hamburger{display:flex;}
+  nav .nav-right .nav-btn:not(.primary){display:none;}
+  .hero{padding:2.5rem 1.5rem 2rem;}
+  h1{font-size:clamp(1.6rem,5vw,2.4rem);}
+  .hero-stats{gap:1.5rem;}
+  .stat-num{font-size:1.5rem;}
+  .map-container{height:360px;}
+  .map-toolbar{flex-direction:column;align-items:flex-start;}
+  .roadmap{grid-template-columns:1fr 1fr;}
+  .node-panel{right:0.5rem;top:0.5rem;width:190px;}
+  .seismic-bar{right:0.5rem;bottom:0.5rem;min-width:120px;}
+  .map-legend{left:0.5rem;bottom:0.5rem;}
+  .panel[style*="grid-column:span 2"]{grid-column:span 1 !important;}
+}
+
+/* Mobile landscape & large phones */
+@media(max-width:640px){
+  nav{padding:0 1rem;height:54px;}
+  .logo-sub{display:none;}
+  .logo{font-size:1.05rem;}
+  .section{min-height:calc(100vh - 54px);}
+  .mobile-nav{top:54px;}
+
+  .hero{padding:2rem 1rem 1.5rem;}
+  h1{font-size:1.6rem;}
+  .hero-desc{font-size:0.88rem;}
+  .btn-primary,.btn-secondary{padding:0.55rem 1.2rem;font-size:0.82rem;}
+  .hero-stats{gap:1rem;margin-top:1.75rem;}
+  .stat-num{font-size:1.4rem;}
+  .stat-label{font-size:0.65rem;}
+
+  .comune-strip{padding:0.5rem 1rem;}
+
+  .map-section{padding:1rem;}
+  .map-container{height:280px;}
+  .map-controls{gap:0.3rem;}
+  .map-btn{padding:0.22rem 0.55rem;font-size:0.68rem;}
+  .map-legend{display:none;}
+  .map-counter-badge{font-size:0.65rem;padding:0.2rem 0.75rem;}
+  .seismic-bar{min-width:110px;padding:0.45rem 0.6rem;}
+  .seismic-title{font-size:0.58rem;}
+  .seismic-val{font-size:0.58rem;}
+  .node-panel{position:fixed;top:auto;bottom:0;left:0;right:0;width:100%;border-radius:16px 16px 0 0;border-color:var(--accent);transform:none !important;max-height:70vh;overflow-y:auto;}
+  .node-panel.hidden{opacity:0;pointer-events:none;transform:translateY(100%) !important;}
+  .np-actions{justify-content:stretch;}
+
+  .dashboard{padding:1rem;}
+  .sec-hd{padding:0.25rem 0 1rem;}
+  .sec-title{font-size:0.88rem;}
+
+  .g4,.g3,.g2{grid-template-columns:1fr;}
+  .panel[style*="grid-column:span 2"]{grid-column:span 1 !important;}
+  .panel[style*="grid-column:span 3"]{grid-column:span 1 !important;}
+
+  .metric{font-size:1.7rem;}
+  .af-item{padding:0.5rem;}
+  .af-text{font-size:0.7rem;}
+
+  .seis-grid{grid-template-columns:repeat(2,1fr);}
+
+  .proto-section{padding:1rem;}
+  .byte-row{gap:2px;}
+  .bc{height:34px;font-size:0.5rem;}
+  .stbl th,.stbl td{padding:0.38rem 0.45rem;font-size:0.7rem;}
+  .stbl th:nth-child(3),.stbl td:nth-child(3){display:none;}
+
+  .terminal{border-radius:10px;}
+  .term-body{font-size:0.74rem;min-height:140px;max-height:220px;padding:0.85rem;}
+  .term-input-row{padding:0.4rem 0.85rem 0.75rem;}
+
+  .roadmap-section{padding:1rem;}
+  .roadmap{grid-template-columns:1fr;}
+
+  .modal{padding:1.25rem;border-radius:14px;}
+  .modal-title{font-size:0.9rem;}
+  .modal-body{font-size:0.78rem;}
+  .modal-ft{flex-direction:column;}
+  .modal-ft button{width:100%;}
+
+  .toast{min-width:220px;max-width:calc(100vw - 2rem);}
+  .toast-container{right:1rem;bottom:1rem;left:1rem;}
+
+  .ai-grid{grid-template-columns:1fr;}
+  .ai-card{padding:0.9rem;}
+
+  footer{padding:1.25rem;}
+  .flinks{gap:0.75rem;}
+}
+
+/* Small phones */
+@media(max-width:380px){
+  h1{font-size:1.4rem;}
+  .hero-stats{gap:0.7rem;}
+  .stat-num{font-size:1.2rem;}
+  .hero-cta{gap:0.5rem;}
+  .btn-primary,.btn-secondary{padding:0.5rem 0.9rem;font-size:0.78rem;}
+  .map-container{height:240px;}
+  .map-controls .map-btn{font-size:0.62rem;padding:0.18rem 0.42rem;}
+}
+
+/* Fix: prevent overflow on all devices */
+@media(max-width:900px){
+  .container{padding:0 1rem;}
+  .nav-btn.primary{padding:0.28rem 0.7rem;font-size:0.72rem;}
+}
+
+/* Touch devices: bigger tap targets */
+@media(hover:none){
+  .mn{width:16px !important;height:16px !important;}
+  .map-btn{padding:0.35rem 0.8rem;}
+  .pill{padding:0.4rem 0.9rem;}
+  .af-item{padding:0.75rem;}
+}
 </style>
 </head>
 <body>
@@ -363,8 +506,26 @@ footer strong{color:var(--accent);}
     <span class="badge-live">● EN VIVO</span>
     <button class="nav-btn" onclick="openModal('alerts')">🔔 Alertas <span id="alert-count" style="background:var(--danger);color:#fff;border-radius:9px;padding:0 5px;font-size:0.65rem;margin-left:2px">8</span></button>
     <button class="nav-btn primary" onclick="openModal('deploy')">+ Nodo</button>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileNav()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-pill active" onclick="nav('home');closeMobileNav()">🏠 Inicio</button>
+  <button class="mobile-pill" onclick="nav('dashboard');closeMobileNav()">📊 Dashboard</button>
+  <button class="mobile-pill" onclick="nav('seismic');closeMobileNav()">🌋 Sísmico <span class="notif-dot"></span></button>
+  <button class="mobile-pill" onclick="nav('ai');closeMobileNav()">🧠 IA</button>
+  <button class="mobile-pill" onclick="nav('protocol');closeMobileNav()">📡 Protocolo</button>
+  <button class="mobile-pill" onclick="nav('sdk');closeMobileNav()">💻 SDK</button>
+  <button class="mobile-pill" onclick="nav('roadmap');closeMobileNav()">🗓 Roadmap</button>
+  <div class="mobile-nav-actions">
+    <button class="nav-btn" style="flex:1" onclick="openModal('alerts');closeMobileNav()">🔔 Alertas (8)</button>
+    <button class="nav-btn primary" style="flex:1" onclick="openModal('deploy');closeMobileNav()">+ Nuevo Nodo</button>
+  </div>
+</div>
 
 <!-- TOASTS -->
 <div class="toast-container" id="TC"></div>
@@ -386,7 +547,7 @@ footer strong{color:var(--accent);}
   <div class="hero">
     <div class="hero-particles" id="particles"></div>
     <div class="hero-tag">🇨🇱 CITYMESH SANTIAGO — RFC-001 OPEN SOURCE</div>
-    <h1>El Sistema Nervioso<br>de las <em> Ciudades</em></h1>
+    <h1>El Sistema Nervioso<br>de las<em>Ciudades</em></h1>
     <p class="hero-desc">Protocolo abierto que convierte la infraestructura de la Región Metropolitana en una red inteligente de sensores. Desde el Mapocho hasta la Cordillera.</p>
     <div class="hero-cta">
       <button class="btn-primary" onclick="nav('dashboard')">Ver Dashboard</button>
@@ -539,7 +700,7 @@ footer strong{color:var(--accent);}
         <div class="panel-hd"><div class="pt">Lecturas por Sensor</div><button class="pa" onclick="refreshBars()">↻ Refresh</button></div>
         <div id="sBars"></div>
       </div>
-      <div class="panel" style="grid-column:span 2">
+      <div class="panel span2">
         <div class="panel-hd"><div class="pt">Alertas Recientes</div><button class="pa" onclick="markRead()">Marcar leídas</button></div>
         <div id="aFeed"></div>
       </div>
@@ -1383,6 +1544,43 @@ function handleKey(e){
 }
 function setCmd(c){document.getElementById('TI').value=c;document.getElementById('TI').focus();}
 function clearTerm(){document.getElementById('TB').innerHTML='<div><span class="tm">Terminal limpiada. Listo.</span></div>';}
+
+// ══════ MOBILE NAV ══════
+function toggleMobileNav(){
+  const nav=document.getElementById('mobileNav');
+  const btn=document.getElementById('hamburgerBtn');
+  nav.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+function closeMobileNav(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+}
+// Update mobile pills active state inside nav()
+const _origNav=nav;
+// Patch nav to also update mobile pills
+(function(){
+  const _nav=nav;
+  window.nav=function(name){
+    _nav(name);
+    document.querySelectorAll('.mobile-pill').forEach(p=>p.classList.remove('active'));
+    const map={home:'Inicio',dashboard:'Dashboard',seismic:'Sísmico',ai:'IA',protocol:'Protocolo',sdk:'SDK',roadmap:'Roadmap'};
+    document.querySelectorAll('.mobile-pill').forEach(p=>{
+      const txt=p.textContent.replace(/[^a-zA-ZáéíóúÍÑñ]/g,'');
+      const target=(map[name]||'').replace(/[^a-zA-ZáéíóúÍÑñ]/g,'');
+      if(txt.includes(target)||target.includes(txt))p.classList.add('active');
+    });
+  };
+})();
+
+// Close mobile nav on outside click
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('mobileNav');
+  const btn=document.getElementById('hamburgerBtn');
+  if(nav.classList.contains('open')&&!nav.contains(e.target)&&!btn.contains(e.target)){
+    closeMobileNav();
+  }
+});
 
 // ══════ TOAST ══════
 function showToast(type,title,msg){
